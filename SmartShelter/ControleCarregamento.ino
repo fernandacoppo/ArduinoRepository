@@ -2,12 +2,12 @@ const int SinalReleBase = 12;
 const int SinalReleApm = 11;
 const int SensorBase = A0;
 const int SensorBateria = A1;
-#define DELTAANALOGV 0.1913580247;
-#define MAXBATERIA 736.4007782;
-#define MAXBASE 796.1089494;
+#define DELTAANALOGV 0.1913580247
+#define MAXBATERIA 736.4007782
+#define MAXBASE 796.1089494
 #define AMOSTRAS 12
 
-void Setup() {
+void setup() {
   pinMode(SinalReleBase,OUTPUT);
   pinMode(SinalReleApm,OUTPUT);
   pinMode(SensorBase,INPUT);
@@ -46,7 +46,7 @@ bool VerificaLeituraAnalogica(uint8_t portaAnalogica, float constanteAnalogica){
 }
 
 bool VerificaTensaoDaBase(){
-  if (VerificaLeituraAnalogica(SinalReleBase,(float)MAXBASE)))
+  if (VerificaLeituraAnalogica(SinalReleBase,(float)MAXBASE))
     return true;
   return false;
 }
@@ -65,11 +65,11 @@ void CarregarBateria(){
   AcionarRelesPreCarregamento();
   while(carregou = false)
   {
-	carregou = AcompanharCarregamento()
+	carregou = AcompanharCarregamento();
   }
 }
 
-void Loop() {
+void loop() {
   if(VerificaTensaoDaBase())
 	  CarregarBateria();
 }
