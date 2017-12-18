@@ -25,7 +25,7 @@ float LePortaAnalogica(uint8_t portaAnalogica) {
 
 void AcionarRele(uint8_t portaDigital){
   digitalWrite(portaDigital,HIGH);
-  delay(5);
+  delay(500);
 }
 
 void AcionarRelesPreCarregamento(){
@@ -39,7 +39,7 @@ void AcionarRelesPosCarregamento(){
 }
 
 bool VerificaLeituraAnalogica(uint8_t portaAnalogica, float constanteAnalogica){
-  float leituraAnalogica = lePortaAnalogica(portaAnalogica);
+  float leituraAnalogica = LePortaAnalogica(portaAnalogica);
   if(leituraAnalogica >= (constanteAnalogica - (float)DELTAANALOGV) || leituraAnalogica <= (constanteAnalogica + (float)DELTAANALOGV))
 	return true;
   return false;
