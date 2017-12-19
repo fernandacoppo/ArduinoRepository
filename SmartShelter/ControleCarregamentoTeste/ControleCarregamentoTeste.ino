@@ -8,6 +8,7 @@ const int SensorBateria = A1;
 #define AMOSTRAS 12
 
 void setup() {
+  Serial.begin(9600);
   pinMode(SinalReleBase,OUTPUT);
   pinMode(SinalReleApm,OUTPUT);
   pinMode(SensorBase,INPUT);
@@ -45,6 +46,11 @@ void AcionarRelesPosCarregamento(){
 
 bool VerificaLeituraAnalogica(uint8_t portaAnalogica, float constanteAnalogica){
   float leituraAnalogica = LePortaAnalogica(portaAnalogica);
+  Serial.print("\n\rConstante analógica é: ");
+  Serial.print(leituraAnalogica);
+  Serial.print("\n\rA tensão é: ");
+  Serial.print(leituraAnalogica/1023);
+  Serial.println ("V");
   if(leituraAnalogica >= (constanteAnalogica - (float)DELTAANALOGV) || leituraAnalogica <= (constanteAnalogica + (float)DELTAANALOGV))
 	return true;
   return false;
@@ -59,9 +65,11 @@ bool VerificaTensaoDaBase(){
 bool AcompanharCarregamento(){
   if (VerificaLeituraAnalogica(SinalReleApm,(float)MAXBATERIA))
   {
-	AcionarRelesPosCarregamento();
-	return true;
+    Serial.print("Bateria carregada!");
+	  AcionarRelesPosCarregamento();
+	  return true;
   }
+  Serial.print("Bateria não está carregada!");
   return false;
 }
 
@@ -76,5 +84,11 @@ void CarregarBateria(){
 
 void loop() {
   if(VerificaTensaoDaBase())
+  {
+	  Serial.print("Há tensão na base!");
 	  CarregarBateria();
+	  delay(300000);
+  }
+  Serial.print("Não há tensão na base!");
+  delay(1000);
 }
